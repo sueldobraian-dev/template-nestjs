@@ -1,0 +1,27 @@
+{
+  "name": "shared-infrastructure",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/infrastructure/src",
+  "projectType": "library",
+  "tags": ["scope:shared", "type:infrastructure"],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/infrastructure",
+        "main": "libs/shared/infrastructure/src/index.ts",
+        "tsConfig": "libs/shared/infrastructure/tsconfig.lib.json",
+        "rootDir": ".",
+        "assets": []
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/shared/infrastructure/jest.config.ts"
+      }
+    }
+  }
+}
