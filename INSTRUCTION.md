@@ -1,6 +1,6 @@
 # Guía de Adopción y Desarrollo (INSTRUCTION.md)
 
-Esta guía establece los estándares de ingeniería, convenciones y recetas paso a paso para cualquier desarrollador o equipo que adopte el **template-nestjs**.
+Esta guía establece los estándares de ingeniería, convenciones y recetas paso a paso para cualquier desarrollador o equipo que adopte el **template-nestjs**, diseñado por **Braian Sueldo (Sarasa Dev)** ([LinkedIn](https://www.linkedin.com/in/braian-sueldo)).
 
 ---
 

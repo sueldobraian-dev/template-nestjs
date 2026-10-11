@@ -9,13 +9,18 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
-  // 1. Configuración del documento OpenAPI con Soporte Bearer JWT
+  // 1. Configuración del documento OpenAPI con Datos del Creador y Soporte Bearer JWT
   const config = new DocumentBuilder()
     .setTitle('Template NestJS Enterprise API')
     .setDescription(
-      'Documentación interactiva de la API con Swagger CLI Plugin e interfaz Scalar.'
+      'Documentación interactiva de la API estructurada por Braian Sueldo (Sarasa Dev) con Swagger CLI Plugin e interfaz Scalar.'
     )
     .setVersion('1.0.0')
+    .setContact(
+      'Braian Sueldo (Sarasa Dev)',
+      'https://www.linkedin.com/in/braian-sueldo',
+      'sueldobraian.dev@gmail.com'
+    )
     .addBearerAuth(
       {
         type: 'http',
@@ -46,12 +51,13 @@ async function bootstrap() {
   const port = process.env['PORT'] || 3000;
   await app.listen(port);
 
-  Logger.log(
-    `🚀 Aplicación ejecutándose en: http://localhost:${port}/${globalPrefix}`
-  );
-  Logger.log(
-    `📖 Documentación Scalar lista en: http://localhost:${port}/docs`
-  );
+  Logger.log('-------------------------------------------------------------------------');
+  Logger.log(`🚀 Aplicación ejecutándose en: http://localhost:${port}/${globalPrefix}`);
+  Logger.log(`📖 Documentación Scalar lista en: http://localhost:${port}/docs`);
+  Logger.log(`👨‍💻 Creador & Autor: Braian Sueldo (Sarasa Dev)`);
+  Logger.log(`🔗 LinkedIn: https://www.linkedin.com/in/braian-sueldo`);
+  Logger.log(`🐙 GitHub: https://github.com/sueldobraian-dev`);
+  Logger.log('-------------------------------------------------------------------------');
 }
 
 bootstrap();

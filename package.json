@@ -2,6 +2,14 @@
   "name": "template-nestjs",
   "version": "1.0.0",
   "description": "Template empresarial NestJS en monorepo Nx con CQRS, Pipeline Behaviors, Result Pattern y AsyncLocalStorage",
+  "author": {
+    "name": "Braian Sueldo (Sarasa Dev)",
+    "url": "https://www.linkedin.com/in/braian-sueldo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sueldobraian-dev/template-nestjs"
+  },
   "private": true,
   "scripts": {
     "build": "nx run-many -t build",

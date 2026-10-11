@@ -6,6 +6,18 @@ Inspirado en las mejores prácticas de robustez empresarial (similares a los pip
 
 ---
 
+## 👨‍💻 Creador & Autoría
+
+Desarrollado y mantenido por **Braian Sueldo (Sarasa Dev)**:
+
+* 💼 **LinkedIn:** [braian-sueldo](https://www.linkedin.com/in/braian-sueldo)
+* 🐙 **GitHub:** [@sueldobraian-dev](https://github.com/sueldobraian-dev)
+
+> ⭐ **¿Usas este template?**
+> Si este template te es útil para tus proyectos, por favor dale una **Estrella ⭐ en GitHub** o haz un **Fork 🍴**. Al usar el botón *"Use this template"* en GitHub, la plataforma le notifica automáticamente al creador sobre nuevos proyectos basados en este template.
+
+---
+
 ## 🏛️ Arquitectura y Principios Clave
 
 ```mermaid
