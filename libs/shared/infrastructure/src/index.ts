@@ -1,5 +1,6 @@
 export * from './context/request-context.service';
 export * from './context/correlation-id.middleware';
+export * from './middleware/disallow-path-versioning.middleware';
 export * from './interceptors/response-envelope.interceptor';
 export * from './filters/global-exception.filter';
 export * from './http/http-client.interface';

@@ -66,6 +66,7 @@ flowchart TD
    - **ApiManagerHttpClientService & OAuth2TokenService:** Diseñado para APIs corporativas detrás de API Gateways (Azure APIM, Apigee, Kong, AWS Gateway). Maneja el flujo OAuth2 Client Credentials con **cache en memoria de tokens** (evitando saturar el STS en cada petición), auto-refresh antes de expirar e inyección de cabeceras de suscripción (`Ocp-Apim-Subscription-Key`).
 6. **Formato de Respuesta Estandarizado:** Formato uniforme `{ success, data/error, meta: { correlationId, timestamp } }` gestionado por `ResponseEnvelopeInterceptor` y `GlobalExceptionFilter` (ocultando stack traces en producción).
 7. **Documentación Interactiva Automática (Swagger + Scalar API Reference):** Generación de especificación OpenAPI usando el plugin CLI de `@nestjs/swagger` (introspección de JSDoc y `class-validator` sin decoradores repetitivos `@ApiProperty`) servida en tiempo real mediante **Scalar API Reference** en `/docs` con soporte para autenticación Bearer JWT.
+8. **Versionado Exclusivo por Query String (?api-version=X):** La API implementa `VersioningType.CUSTOM` de NestJS con el parámetro `?api-version=X` (ej: `/api/users?api-version=1`). El versionado por extensión de dominio o prefijo de ruta en la URI (ej: `/api/v1/users`) está prohibido y es bloqueado por el middleware `DisallowPathVersioningMiddleware` para mantener las URLs limpias y uniformes.
 
 ---
 
@@ -228,6 +229,24 @@ curl -X POST http://localhost:3000/api/users \
   "meta": {
     "correlationId": "uuid-generado-automaticamente",
     "timestamp": "2026-10-08T01:50:21.921Z"
+  }
+}
+```
+
+### 4. Rechazo de Versionado por Path/URI (HTTP 400 Bad Request)
+Intentar acceder a la API usando prefijos en la ruta (ej. `/api/v1/users`) es bloqueado por `DisallowPathVersioningMiddleware`:
+```bash
+curl -X POST http://localhost:3000/api/v1/users \
+  -H "Content-Type: application/json" \
+  -d '{"email": "john.doe@enterprise.com", "name": "John Doe", "password": "StrongPassword123!"}'
+```
+**Respuesta:**
+```json
+{
+  "statusCode": 400,
+  "message": {
+    "code": "PATH_VERSIONING_NOT_ALLOWED",
+    "message": "El versionado por path o extensión de dominio (ej. /v1/users) está prohibido en este template. La API utiliza exclusivamente versionado por Query String mediante el parámetro '?api-version=X' (ejemplo: /api/users?api-version=1)."
   }
 }
 ```

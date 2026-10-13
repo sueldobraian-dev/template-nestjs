@@ -12,9 +12,9 @@ import { RegisterUserDto, UserResponseDto } from './dtos/register-user.dto';
 import { UserAggregate } from '../domain/user.aggregate';
 
 /**
- * Control de endpoints para la gestión de usuarios.
+ * Control de endpoints para la gestión de usuarios (Versionado por Query String: ?api-version=1).
  */
-@Controller('users')
+@Controller({ path: 'users', version: '1' })
 export class UsersController {
   constructor(private readonly commandBus: PipelineCommandBus) {}
 

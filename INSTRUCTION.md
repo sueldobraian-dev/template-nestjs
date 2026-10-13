@@ -34,6 +34,11 @@ Este template traslada la disciplina de arquitecturas limpias empresariales (DDD
      - **DirectHttpClientService:** Para endpoints directos por URL (con timeout y `x-correlation-id`).
      - **ApiManagerHttpClientService + OAuth2TokenService:** Para APIs corporativas protegidas por API Gateways / API Managers que requieren Client Credentials OAuth2 y caching de tokens.
 
+6. **Versionado Exclusivo por Query String (?api-version=X):**
+   - El versionado de la API es **exclusivamente por Query String** con la clave `api-version` (ej: `/api/users?api-version=1`).
+   - Está **estrictamente prohibido** versionar mediante la extensión de dominio o prefijos de ruta en la URI (ej. `/api/v1/users`).
+   - El middleware `DisallowPathVersioningMiddleware` rechaza cualquier intento de versionado por path con HTTP 400 Bad Request.
+
 ---
 
 ## 2. Recetas Paso a Paso

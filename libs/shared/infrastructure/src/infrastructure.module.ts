@@ -1,6 +1,7 @@
 import { Global, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { RequestContextService } from './context/request-context.service';
 import { CorrelationIdMiddleware } from './context/correlation-id.middleware';
+import { DisallowPathVersioningMiddleware } from './middleware/disallow-path-versioning.middleware';
 import { ResponseEnvelopeInterceptor } from './interceptors/response-envelope.interceptor';
 import { GlobalExceptionFilter } from './filters/global-exception.filter';
 
@@ -14,6 +15,7 @@ import { ApiManagerHttpClientService } from './http/api-manager-http-client.serv
     RequestContextService,
     ResponseEnvelopeInterceptor,
     GlobalExceptionFilter,
+    DisallowPathVersioningMiddleware,
     OAuth2TokenService,
     DirectHttpClientService,
     ApiManagerHttpClientService,
@@ -22,6 +24,7 @@ import { ApiManagerHttpClientService } from './http/api-manager-http-client.serv
     RequestContextService,
     ResponseEnvelopeInterceptor,
     GlobalExceptionFilter,
+    DisallowPathVersioningMiddleware,
     OAuth2TokenService,
     DirectHttpClientService,
     ApiManagerHttpClientService,
@@ -29,6 +32,8 @@ import { ApiManagerHttpClientService } from './http/api-manager-http-client.serv
 })
 export class InfrastructureModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(CorrelationIdMiddleware).forRoutes('*');
+    consumer
+      .apply(CorrelationIdMiddleware, DisallowPathVersioningMiddleware)
+      .forRoutes('*');
   }
 }

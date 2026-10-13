@@ -36,6 +36,10 @@ Al generar o modificar código en este repositorio, debes cumplir **estrictament
 5. **Servicios Externos (Hexagonal Outbound):**
    - **URL Directa:** Se implementa con `DirectHttpClientService` (adjunta `x-correlation-id` automáticamente).
    - **API Gateway con OAuth2:** Se implementa con `ApiManagerHttpClientService` + `OAuth2TokenService` (maneja cache de tokens con expiración y cabeceras de suscripción).
+6. **Versionado ÚNICAMENTE por Query String (Prohibido por Path/Dominio):**
+   - El versionado se resuelve mediante `VersioningType.CUSTOM` con el parámetro `?api-version=X` (ej. `/api/users?api-version=1`).
+   - Está **estrictamente prohibido** versionar por prefijo de URI o extensión de dominio (ej. `/api/v1/users`).
+   - Los controladores deben usar `@Controller({ path: '<feature>', version: '1' })` o `@Version('1')`, manteniendo el path limpio.
 
 ---
 

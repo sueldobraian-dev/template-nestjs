@@ -1,13 +1,25 @@
-import { Logger } from '@nestjs/common';
+import { Logger, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { apiReference } from '@scalar/nestjs-api-reference';
+import { Request } from 'express';
 import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
+
+  // Regla Arquitectónica: Versionado ÚNICAMENTE por Query String (?api-version=X). Prohibido en el path/URI.
+  app.enableVersioning({
+    type: VersioningType.CUSTOM,
+    extractor: (request: unknown) => {
+      const req = request as Request;
+      const queryVersion = req.query?.['api-version'];
+      return typeof queryVersion === 'string' ? queryVersion : '1';
+    },
+    defaultVersion: '1',
+  });
 
   // 1. Configuración del documento OpenAPI con Datos del Creador y Soporte Bearer JWT
   const config = new DocumentBuilder()
